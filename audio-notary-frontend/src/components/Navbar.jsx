@@ -47,7 +47,7 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-6">
-            {true && (
+            {user && (
                 <>
                 <Link to="/scan" className={location.pathname === '/scan' ? activeBtnStyle : navBtnStyle}>
                     <FaHome className="text-lg"/> Home
