@@ -1,215 +1,252 @@
-# 🎙️ VeriVox AI — Audio Deepfake Detector
- 
-> **The world's first AI-powered Forensic Audio Audit system with browser extension support.**
- 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-forensictoolkithack.vercel.app-blue?style=for-the-badge)](https://forensictoolkithack.vercel.app)
-[![Backend](https://img.shields.io/badge/Backend-Hugging%20Face-yellow?style=for-the-badge)](https://huggingface.co/spaces/DEV1767/verivoxxx)
-[![Python](https://img.shields.io/badge/Python-3.11-green?style=for-the-badge)](https://python.org)
-[![React](https://img.shields.io/badge/React-Vite-61DAFB?style=for-the-badge)](https://vitejs.dev)
- 
----
- 
-## 🚨 Problem
- 
-Audio deepfakes are being used for fraud, misinformation, and voice cloning scams. Existing tools require technical expertise and there is no easy platform for everyday users to verify if an audio clip is real or AI-generated.
- 
----
- 
-## ✅ Solution
- 
-VeriVox AI lets anyone upload any audio file and instantly know if it is **REAL** or **AI-GENERATED** — with a confidence score, waveform analysis, and a plain-language explanation powered by Gemini AI.
- 
----
- 
-## ✨ Features
- 
-- 🔍 **Audio Deepfake Detection** — Upload any audio file and get instant REAL/FAKE verdict
-- 📊 **Confidence Score** — Percentage-based confidence with detailed forensic breakdown
-- 🧠 **AI Explanation** — Gemini AI explains the result in plain language
-- 🎤 **Voice Comparison** — Upload two audio clips to detect voice cloning attacks
-- 📄 **PDF Report** — Download a full forensic report for any analysis
-- 📜 **History Dashboard** — View all past scans with timestamps
-- 🔐 **JWT Authentication** — Secure user login and registration
-- 🌐 **Chrome Extension** — Detect deepfakes directly on any webpage with one click
- 
----
- 
-## 🏗️ Project Structure
- 
-```
-forensic_toolkit/
-├── audio-notary-backend/     # FastAPI Backend
-│   ├── app/
-│   │   ├── main.py           # FastAPI app entry point
-│   │   ├── auth.py           # JWT authentication
-│   │   ├── database.py       # MongoDB connection
-│   │   ├── routes/
-│   │   │   ├── analyze.py    # Audio detection endpoints
-│   │   │   ├── auth_routes.py
-│   │   │   ├── compare.py    # Voice comparison endpoint
-│   │   │   └── explain.py    # Gemini AI explanation
-│   │   └── services/
-│   │       ├── forensics.py  # Core ML analysis logic
-│   │       └── pdf_service.py
-│   ├── Dockerfile
-│   └── requirements.txt
-│
-└── audio-notary-frontend/    # React Frontend
-    ├── src/
-    │   ├── pages/
-    │   │   ├── Home.jsx      # Audio upload & scan page
-    │   │   ├── Compare.jsx   # Voice comparison page
-    │   │   ├── Dashboard.jsx # History page
-    │   │   ├── Explain.jsx   # AI explanation page
-    │   │   └── Login.jsx     # Authentication page
-    │   ├── components/
-    │   └── context/
-    ├── vercel.json
-    └── package.json
-```
- 
----
- 
-## 🛠️ Tech Stack
- 
-### Backend
-| Technology | Purpose |
-|---|---|
-| FastAPI | REST API framework |
-| Python 3.11 | Core language |
-| PyTorch + Torchaudio | Deep learning model |
-| Whisper (OpenAI) | Audio transcription |
-| Librosa | Audio feature extraction |
-| MongoDB Atlas | Database |
-| Google Gemini AI | Plain-language explanations |
-| JWT + bcrypt | Authentication |
-| Docker | Containerization |
- 
-### Frontend
-| Technology | Purpose |
-|---|---|
-| React + Vite | UI framework |
-| Tailwind CSS | Styling |
-| React Router | Navigation |
-| Axios | API calls |
-| React Dropzone | File upload |
- 
----
- 
-## 🚀 Getting Started
- 
-### Prerequisites
-- Python 3.11
-- Node.js 18+
-- MongoDB Atlas account
-- Google Gemini API key
- 
-### Backend Setup
- 
-```bash
-cd audio-notary-backend
- 
-# Create virtual environment
-python -m venv venv
-venv\Scripts\activate  # Windows
-source venv/bin/activate  # Mac/Linux
- 
-# Install PyTorch first
-pip install torch==2.3.0 torchaudio==2.3.0 --index-url https://download.pytorch.org/whl/cpu
- 
-# Install dependencies
-pip install -r requirements.txt
- 
-# Create .env file
-cp .env.example .env
-# Add your MONGO_URI, SECRET_KEY, GEMINI_API_KEY
- 
-# Start server
-python -m uvicorn app.main:app --reload
-```
- 
-### Frontend Setup
- 
-```bash
-cd audio-notary-frontend
- 
-# Install dependencies
-npm install
- 
-# Start dev server
-npm run dev
-```
- 
-Open `http://localhost:5173`
- 
----
- 
-## 🌐 Chrome Extension
- 
-A Chrome extension that adds a **"Check with VeriVox"** button on any webpage with audio content.
- 
-### Install
-1. Download the `verivox-extension` folder
-2. Open Chrome → `chrome://extensions`
-3. Enable **Developer mode**
-4. Click **Load unpacked** → select the folder
- 
-### How it works
-- Automatically scans any webpage for audio/video elements
-- Adds a purple "Check with VeriVox" button next to each player
-- One click opens VeriVox with the audio URL ready to analyze
- 
----
- 
-## 📡 API Endpoints
- 
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/api/detect` | Analyze uploaded audio file |
-| POST | `/api/detect-url` | Analyze audio from URL |
-| POST | `/api/compare` | Compare two audio files |
-| GET | `/api/history` | Get user's scan history |
-| GET | `/api/report/{id}/download` | Download PDF report |
-| DELETE | `/api/report/{id}` | Delete a report |
-| POST | `/auth/register` | Register new user |
-| POST | `/auth/login` | Login user |
- 
----
- 
-## 🎯 Use Cases
- 
-- **Journalists** verifying audio evidence in news stories
-- **Legal teams** checking voice recordings for court
-- **HR teams** verifying interview recordings
-- **General public** protecting against voice scam calls
-- **Social media platforms** flagging fake audio content
- 
----
- 
-## 🔐 Environment Variables
- 
-Create a `.env` file in `audio-notary-backend/`:
- 
-```
-MONGO_URI=your_mongodb_connection_string
-SECRET_KEY=your_secret_key
-GEMINI_API_KEY=your_gemini_api_key
-```
- 
----
- 
-## 📦 Deployment
- 
-- **Frontend** → Vercel (auto-deploy on push)
-- **Backend** → Hugging Face Spaces (Docker)
- 
----
- 
-## 👨‍💻 Team
- 
-Built with ❤️ for hackathon — VeriVox AI Team
- 
----
- 
+# 🎙️ VeriVox AI — Audio Authenticity Forensics Platform
 
- 
+![VeriVox Banner](https://img.shields.io/badge/AI-Audio%20Forensics-purple)
+![FastAPI](https://img.shields.io/badge/backend-FastAPI-green)
+![React](https://img.shields.io/badge/frontend-React-blue)
+![MongoDB](https://img.shields.io/badge/database-MongoDB-brightgreen)
+![TailwindCSS](https://img.shields.io/badge/UI-TailwindCSS-cyan)
+
+VeriVox AI is an **AI-powered audio forensic analysis platform** designed to detect **synthetic or AI-generated speech** and verify **human authenticity** using advanced signal analysis and machine learning techniques.
+
+The system analyzes uploaded audio files and generates a **forensic authenticity report**, providing insights into speech characteristics and potential AI artifacts.
+
+---
+
+# 🚀 Features
+
+### 🎧 AI Voice Authenticity Detection
+Detects whether an audio recording is:
+- **Real Human Voice**
+- **AI / Synthetic Voice**
+
+Using signal processing and ML analysis.
+
+---
+
+### 🧠 Multi-Layer Forensic Analysis
+The system analyzes multiple acoustic features including:
+
+- Pitch jitter
+- Cepstral peak prominence
+- Spectral entropy
+- Silence patterns
+- MFCC temporal variance
+- Energy modulation
+
+---
+
+### 🔬 Visual Forensic Insights
+Users receive explanations about the verdict including:
+
+- Detected anomalies
+- Speech texture inconsistencies
+- Synthetic voice artifacts
+- Organic vocal patterns
+
+---
+
+### 📊 Biometric Confidence Score
+The system generates:
+
+- AI Probability
+- Human Alignment Score
+
+Displayed using interactive visual charts.
+
+---
+
+### 📄 Notarized Forensic Report
+Authenticated users can download a **PDF forensic report** containing:
+
+- Verdict
+- Confidence scores
+- Feature breakdown
+- Timestamp
+- Metadata
+
+---
+
+### 🔐 Authentication System
+Supports:
+
+- JWT authentication
+- User accounts
+- Guest access
+
+Guests can analyze audio but cannot download reports.
+
+---
+
+### 🌐 Modern UI Dashboard
+The frontend includes:
+
+- Animated waveform visuals
+- Interactive charts
+- Glassmorphism UI
+- Responsive design
+- Aurora animated backgrounds
+
+---
+
+# 🧠 Tech Stack
+
+## Frontend
+
+- React (Vite)
+- TailwindCSS
+- Recharts
+- React Icons
+- React Context API
+
+---
+
+## Backend
+
+- FastAPI
+- Python
+- Librosa
+- PyTorch
+- OpenAI Whisper
+- SciPy
+- NumPy
+
+---
+
+## Database
+
+- MongoDB Atlas
+
+---
+
+## Deployment
+
+- Docker support
+- Procfile for cloud deployment
+
+---
+
+## 📂 Project Structure
+
+To maintain a clean separation of concerns, the project is divided into a FastAPI backend and a React frontend.
+```
+VeriVox-AI
+│
+├── audio-notary-backend
+│   ├── app
+│   │   ├── routes
+│   │   │   ├── analyze.py
+│   │   │   ├── auth_routes.py
+│   │   │   └── explain.py
+│   │   │
+│   │   ├── services
+│   │   │   ├── forensics.py
+│   │   │   └── pdf_service.py
+│   │   │
+│   │   ├── auth.py
+│   │   ├── database.py
+│   │   ├── models.py
+│   │   └── main.py
+│   │
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── Procfile
+│
+├── audio-notary-frontend
+│   ├── public
+│   │   └── favicon.ico
+│   │
+│   ├── src
+│   │   ├── assets
+│   │   │   ├── logo.png
+│   │   │   └── waveform.svg
+│   │   │
+│   │   ├── components
+│   │   │   ├── ResultsView.jsx
+│   │   │   ├── AuthForm.jsx
+│   │   │   ├── Hero.jsx
+│   │   │   ├── Footer.jsx
+│   │   │   ├── Navbar.jsx
+│   │   │   └── ScannerOverlay.jsx
+│   │   │
+│   │   ├── context
+│   │   │   ├── AuthContext.jsx
+│   │   │   └── ScanContext.jsx
+│   │   │
+│   │   ├── pages
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── Home.jsx
+│   │   │   ├── Login.jsx
+│   │   │   └── Explain.jsx
+│   │   │
+│   │   ├── api.js
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   ├── main.jsx
+│   │   └── index.css
+│   │
+│   ├── .gitignore
+│   ├── eslint.config.js
+│   ├── index.html
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   ├── vite.config.js
+│   └── vercel.json
+│
+└── README.md
+```
+
+---
+
+## ⚙️ Backend Setup
+
+Follow these steps to get the server-side logic running:
+
+## 1. Clone the Repository
+git clone [https://github.com/swaroop07p/VeriVox-AI.git](https://github.com/swaroop07p/VeriVox-AI.git) <br/>
+cd VeriVox-AI/audio-notary-backend
+
+## 2. Create a Virtual Environment
+- Windows:<br/>
+python -m venv venv <br/>
+venv\Scripts\activate <br/>
+- Linux / Mac:<br/>
+python -m venv venv <br/>
+source venv/bin/activate <br/>
+
+## 3. Install Dependencies
+pip install -r requirements.txt
+
+## 4. Configure Environment Variables
+Create a .env file in the audio-notary-backend directory and add your credentials: <br/>
+Code snippet <br/>
+
+MONGO_URI=your_mongodb_connection_string <br/>
+SECRET_KEY=your_secret_key <br/>
+GEMINI_API_KEY=your_gemin_api_key <br/>
+
+## 5. Run the Backend Server
+uvicorn app.main:app --reload || python -m uvicorn app.main:app --reload <br/>
+#### Note: The backend will be accessible at: http://localhost:8000
+
+---
+
+## 🎨 Frontend Setup
+Ensure your backend is running, then open a new terminal:
+
+- 1. Navigate to Frontend
+cd ../audio-notary-frontend
+
+- 2. Install Packages
+npm install
+
+- 3. Start Development Server
+npm run dev <br/>
+#### Note: The frontend will be accessible at: http://localhost:5173
+
+---
+
+## 🚀 Deployment
+- Backend: Ready for Docker or Heroku (via Dockerfile and Procfile).
+- Database: Uses MongoDB for flexible document storage.
