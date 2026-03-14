@@ -211,7 +211,5 @@ Built with ❤️ for hackathon — VeriVox AI Team
  
 ---
  
-## 📄 License
- 
-MIT License
+
  
