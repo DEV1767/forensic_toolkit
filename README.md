@@ -250,3 +250,19 @@ npm run dev <br/>
 ## 🚀 Deployment
 - Backend: Ready for Docker or Heroku (via Dockerfile and Procfile).
 - Database: Uses MongoDB for flexible document storage.
+---
+
+---
+
+# 🤝 Contributors
+
+We appreciate the contributions of the following developers who helped build VeriVox AI.
+
+| Name | Role |
+|-----|-----|
+| Shivam Chaudhary |  Backend Development |
+| Swaroop | Project Development & Team leader |
+| Shreyas A | AI / Development |Frontend|
+| Satvik US | Backend Development  |
+
+---
